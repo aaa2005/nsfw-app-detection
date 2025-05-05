@@ -64,7 +64,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
 
     private void deleteNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.deleteNotificationChannel("nsfw_detector_channel");
             //Log.d("MyAccessibilityService", "Notification channel deleted.");
@@ -73,7 +73,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
 
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NotificationChannel channel = new NotificationChannel(
                 "nsfw_detector_channel", // Channel ID
                 "NSFW Detector Notifications", // Channel name
@@ -241,8 +241,17 @@ public class MyAccessibilityService extends AccessibilityService {
         }
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(1, builder.build()); // Use a unique ID for each notification
+        //notificationManager.notify(1, builder.build()); // Use a unique ID for each notification
         //Log.d("MyAccessibilityService", "Notification sent.");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED) {
+                notificationManager.notify(1, builder.build());
+            }
+        } else {
+            notificationManager.notify(1, builder.build());
+        }
+
     }
 
     @Override
