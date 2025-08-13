@@ -34,12 +34,7 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
         </service>
-        <receiver android:name=".BootReceiver" android:enabled="true" android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+        
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -52,3 +47,4 @@
         </provider>
     </application>
 </manifest>
+
