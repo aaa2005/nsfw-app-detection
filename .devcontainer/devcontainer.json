@@ -1,0 +1,15 @@
+{
+  "name": "Android Development",
+  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "features": {
+    "ghcr.io/devcontainers/features/android:1": {
+      "version": "33", // You can specify the SDK version here
+      "components": [
+        "platform-tools",
+        "build-tools-33.0.2",
+        "platforms;android-33"
+      ]
+    }
+  },
+  "postCreateCommand": "sdkmanager --licenses"
+}
